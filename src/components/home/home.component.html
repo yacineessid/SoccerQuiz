@@ -1,0 +1,44 @@
+<div class="container h-100">
+  <div class="row align-items-center justify-content-center h-100">
+    <div class="col-md-6 text-center" style="width: 100%; margin-top:20px">
+      <h1 *ngIf="!quizStarted" class="mb-4" style="color: white; width:100%">Welcome to SoccerQuiz Pro!</h1>
+      <button *ngIf="!quizStarted" class="btn btn-primary start-button" (click)="startQuiz()">Start</button>
+      <div *ngIf="quizStarted && currentQuestionIndex != quizes.length - 1" class="question-container">
+        <h3 class="mb-4" style="color: white; font-family: 'Arial', sans-serif;">
+          <span class="question-number badge bg-primary rounded-pill me-2">{{ currentQuestionIndex + 1 }}</span>
+          <span>{{ currentQuestion.question }}</span>
+        </h3>        <div class="row">
+          <div class="col-md-12">
+            <div class="answer-buttons">
+              <button *ngFor="let answer of currentQuestion.answers; let i=index"
+                      class="btn btn-outline-light answer-button mb-3"
+                      [ngClass]="{'selected': i === selectedAnswerIndex}"
+                      [disabled]="answerSubmitted"
+                      (click)="checkAnswer(answer,i)">
+                {{ answer }}
+              </button>
+            </div>
+            <div *ngIf="answerSubmitted && currentQuestionIndex==29" class="correct-answer-feedback mt-3" style="color: white;">
+              Correct answer: {{ currentQuestion.correct_answer }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="currentQuestionIndex < quizes.length - 1 && (answerSubmitted || selectedAnswer)" class="mt-4">
+          <button class="btn btn-primary next-button" (click)="nextQuestion()">Next</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentQuestionIndex === quizes.length - 1" class="col-md-6 text-center mt-4">
+      <h4 style="color: white;">Quiz completed! Your score: {{ score }}/{{ quizes.length }}</h4>
+      <div class="mt-3">
+        <i *ngIf="score === 30" class="fas fa-grin-stars fa-2x text-success me-2"></i>
+        <i *ngIf="score > 20 && score < 30" class="fas fa-smile fa-2x text-warning me-2"></i>
+        <i *ngIf="score <= 20" class="fas fa-frown fa-2x text-danger me-2"></i>
+      </div>
+      <button class="btn btn-primary start-button mt-3" (click)="restartQuiz()">Restart</button>
+
+
+    </div>
+
+  </div>
+</div>

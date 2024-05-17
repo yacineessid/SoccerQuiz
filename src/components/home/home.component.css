@@ -1,0 +1,14 @@
+.answer-button{
+  width: 100%;
+  margin: 10px;
+  background-color: rgb(107 159 18);
+  opacity: 0.9;
+}
+
+.question-container{
+  margin-top: 30px;  ;
+}
+
+.selected{
+  background-color: cornflowerblue;
+}
